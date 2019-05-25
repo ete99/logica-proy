@@ -1,4 +1,5 @@
-
+edad(bruno diaz,26).
+edad(ikergarcia,27).
 edad(1, 21).
 edad(2, 21).
 asig(1, 40).
@@ -32,7 +33,8 @@ icomida(X,Y):-
 		comida(X,A), comida(X,B), comida(X,C),
 		diferentes(A,B,C), 
 		comida(Y,A), comida(Y,B), comida(Y,C).
-i(X,Y):- 
+tiempo(X,Y):- time(buscar_pareja(X,Y)).
+buscar_pareja(X,Y):-
 		edad(X, E1), E1 >=21,  % Elige una persona y chequea si tiene 21 anhos o mas
 		asig(X, A1), A1>=40,  % chequea si tiene mas de 40 asignaturas aprobadas
 		icarrera(X,Y),  % elige alguna Y que tiene igual carrera que X
