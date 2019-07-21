@@ -2,8 +2,8 @@ edad(bruno diaz,26).
 edad(ikergarcia,27).
 edad(1, 21).
 edad(2, 21).
-asig(1, 40).
-asig(2, 40).
+materiasAprobadas(1, 40).
+materiasAprobadas(2, 40).
 carrera(1,iin).
 carrera(2,iin).
 mov(1,false).
@@ -22,28 +22,34 @@ comida(1, fideo).
 comida(2, arroz).
 comida(2, pollo).
 comida(2, fideo).
+sexo(1,femenino).
+sexo(2,masculino).
 
-icarrera(X,Y):- carrera(X,Carr), carrera(Y,Carr).
-imov(X,Y):- mov(X,Mov1), mov(Y,Mov2), Mov1 \= Mov2.
-igusto(X,Y):- 
-		gusto(X,A), gusto(X,B), gusto(X,C), gusto(X,D),
+igual_condicion(X,Y):- condLaboral(X,C), condLaboral(Y,C).
+dif_sexo(X,Y):- sexo(X,S1), sexo(Y,S2), S1 \= S2.
+igual_carrera(X,Y):- carrera(X,Carr), carrera(Y,Carr).
+dif_movilidad(X,Y):- mov(X,Mov1), mov(Y,Mov2), Mov1 \= Mov2.
+iguales_areas(X,Y):- 
+		area(X,A), area(X,B), area(X,C), area(X,D),
 		diferentes(A,B,C,D),
-		gusto(Y,A), gusto(Y,B), gusto(Y,C), gusto(Y,D).
-icomida(X,Y):- 
+		area(Y,A), area(Y,B), area(Y,C), area(Y,D).
+iguales_comidas(X,Y):- 
 		comida(X,A), comida(X,B), comida(X,C),
 		diferentes(A,B,C), 
 		comida(Y,A), comida(Y,B), comida(Y,C).
 tiempo(X,Y):- time(buscar_pareja(X,Y)).
 buscar_pareja(X,Y):-
 		edad(X, E1), E1 >=21,  % Elige una persona y chequea si tiene 21 anhos o mas
-		asig(X, A1), A1>=40,  % chequea si tiene mas de 40 asignaturas aprobadas
-		icarrera(X,Y),  % elige alguna Y que tiene igual carrera que X
+		materiasAprobadas(X, A1), A1>=40,  % chequea si tiene mas de 40 materiasAprobadasnaturas aprobadas
+		igual_carrera(X,Y),  % elige alguna Y que tiene igual carrera que X
 		X \= Y,  % chequea si Y y X son diferentes
-		imov(X,Y),  % chequea si Y que tiene movilidad diferente a X
+		dif_sexo(X,Y),
+		igual_condicion(X,Y),
+		dif_movilidad(X,Y),  % chequea si Y que tiene movilidad diferente a X
 		edad(Y, E2), E2 >=21,  % chequea si la edad de Y es aceptable
-		asig(Y, A2), A2>=40,  % chequea si la cantidad de asignaturas aprobadas es aceptable
-		icomida(X,Y),  % chequea si tienen al menos 3 gustos de comida iguales
-		igusto(X,Y),  % chequea si tienen al menos 4 gustos de subareas iguales
+		materiasAprobadas(Y, A2), A2>=40,  % chequea si la cantidad de materiasAprobadasnaturas aprobadas es aceptable
+		iguales_comidas(X,Y),  % chequea si tienen al menos 3 gustos de comida iguales
+		iguales_areas(X,Y),  % chequea si tienen al menos 4 gustos de subareas iguales
 		!.
 diferentes(A,B,C,D):-
 		A \= B, A \= C, A \= D,
